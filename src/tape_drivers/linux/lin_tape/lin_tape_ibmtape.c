@@ -1265,7 +1265,8 @@ start:
 	if (rc != 0) {
 		rc = lin_tape_ibmtape_ioctlrc2err(device, fd, &sense_data, msg);
 		if (rc == -EDEV_TIME_STAMP_CHANGED) {
-			ltfsmsg(LTFS_DEBUG, 30411D, cmd_name, cmd, rc);
+			ltfsmsg(LTFS_DEBUG, 30411D, cmd_name, cmd,
+				sense_data.key, sense_data.asc, sense_data.ascq, rc);
 			goto start;
 		}
 		ltfsmsg(LTFS_INFO, 30408I, cmd_name, cmd, rc, errno, ((struct lin_tape_ibmtape *) device)->drive_serial);
@@ -1291,7 +1292,8 @@ start:
 	if (rc != 0) {
 		rc = lin_tape_ibmtape_ioctlrc2err(device, fd, &sense_data, msg);
 		if (rc == -EDEV_TIME_STAMP_CHANGED) {
-			ltfsmsg(LTFS_DEBUG, 30411D, cmd_name, cmd, rc);
+			ltfsmsg(LTFS_DEBUG, 30411D, cmd_name, cmd,
+				sense_data.key, sense_data.asc, sense_data.ascq, rc);
 			goto start;
 		}
 		ltfsmsg(LTFS_INFO, 30408I, cmd_name, cmd, rc, errno, ((struct lin_tape_ibmtape *) device)->drive_serial);
@@ -1888,7 +1890,8 @@ int lin_tape_ibmtape_erase(void *device, struct tc_position *pos, bool long_eras
 
 		rc = lin_tape_ibmtape_long_erase(device);
 		if (rc == -EDEV_TIME_STAMP_CHANGED) {
-			ltfsmsg(LTFS_DEBUG, 30411D, "erase", -1, rc);
+			/* sense is not available here; long_erase uses sioc_paththrough internally */
+			ltfsmsg(LTFS_DEBUG, 30411D, "erase", -1, 0, 0, 0, rc);
 			rc = lin_tape_ibmtape_long_erase(device);
 		}
 

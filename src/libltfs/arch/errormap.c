@@ -428,6 +428,8 @@ static struct error_map fuse_error_list[] = {
 	{ EDEV_OVERLAPPED,               "D1101E", EIO},
 	{ EDEV_TIMEOUT,                  "D1102E", ETIMEDOUT},
 	{ EDEV_ABORT_WAIT_READY,         "D1103E", EIO},
+	{ EDEV_MISCORRECTED_ERROR,       "D1104E", EIO},
+	{ EDEV_AUTH_FAILED,              "D1105E", EIO},
 	{ EDEV_OVERFLOW,                 "D1300E", EIO},
 	{ EDEV_THIRD_PARTY_ERROR,        "D1000E", EIO},
 	{ EDEV_UNREACHABLE_TARGET,       "D1001E", EIO},
